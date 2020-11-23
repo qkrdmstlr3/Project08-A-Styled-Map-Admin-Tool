@@ -1,14 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, RefObject } from 'react';
 import dotenv from 'dotenv';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-import MapPresenter from './MapPresenter';
-
 dotenv.config();
 mapboxgl.accessToken = process.env.REACT_APP_ACCESS_TOKEN as string;
 
-function MapContainer(): React.ReactElement {
+export interface MapHookType {
+  mapRef: RefObject<HTMLDivElement>;
+  plusZoom: () => void;
+  minusZoom: () => void;
+  fullscreenHandler: () => void;
+  smallscreenHandler: () => void;
+}
+
+function MapHook(): MapHookType {
   const [lng, setLng] = useState<number>(128);
   const [lat, setLat] = useState<number>(36.5);
   const [zoom, setZoom] = useState<number>(7);
@@ -63,15 +69,13 @@ function MapContainer(): React.ReactElement {
     window.document.exitFullscreen();
   };
 
-  return (
-    <MapPresenter
-      fullscreenHandler={fullscreenHandler}
-      smallscreenHandler={smallscreenHandler}
-      mapRef={mapRef}
-      plusZoom={plusZoom}
-      minusZoom={minusZoom}
-    />
-  );
+  return {
+    mapRef,
+    plusZoom,
+    minusZoom,
+    fullscreenHandler,
+    smallscreenHandler,
+  };
 }
 
-export default MapContainer;
+export default MapHook;

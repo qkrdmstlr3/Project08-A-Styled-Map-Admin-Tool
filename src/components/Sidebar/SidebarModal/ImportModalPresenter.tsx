@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
 import CloseIcon from '../../Icon/CloseIcon';
+import ImportModalHook, { ImportModalHookType } from './ImportModalHook';
 
 const Overlay = styled.div`
   position: fixed;
@@ -101,18 +102,19 @@ const ModalOKButton = styled.button`
 `;
 
 interface ImportModalPresenterProps {
-  onClickClose: (e: React.MouseEvent) => void;
-  text: string;
-  changeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onClickOK: (e: React.MouseEvent) => void;
+  importModalToggleHandler: () => void;
 }
 
 function ImportModalPresenter({
-  onClickClose,
-  text,
-  changeText,
-  onClickOK,
+  importModalToggleHandler,
 }: ImportModalPresenterProps): React.ReactElement {
+  const {
+    onClickOK,
+    text,
+    changeText,
+    onClickClose,
+  }: ImportModalHookType = ImportModalHook({ importModalToggleHandler });
+
   return (
     <>
       <Overlay onClick={onClickClose} />

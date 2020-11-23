@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import SidebarDropdownHook, {
+  SidebarDropdownHookType,
+} from './SidebarDropdownHook';
+
+import ImportModalPresenter from '../SidebarModal/ImportModalPresenter';
 
 const DropdownWrapper = styled.div`
   position: absolute;
@@ -25,21 +30,45 @@ const DropdownItem = styled.div`
 `;
 
 interface SidebarDropdownPresenterProps {
-  resetClickHandler: (e: React.MouseEvent) => void;
-  importModalToggleHandler: (e: React.MouseEvent) => void;
+  isOpened: boolean;
+  dropdownToggleHandler: () => void;
 }
 
 function SidebarDropdownPresenter({
-  resetClickHandler,
-  importModalToggleHandler,
+  isOpened,
+  dropdownToggleHandler,
 }: SidebarDropdownPresenterProps): React.ReactElement {
+  const {
+    resetClickHandler,
+    importModalToggleHandler,
+    isModalOpened,
+  }: SidebarDropdownHookType = SidebarDropdownHook({
+    isOpened,
+    dropdownToggleHandler,
+  });
+
   return (
-    <DropdownWrapper>
-      <DropdownItem onClick={resetClickHandler}>초기화</DropdownItem>
-      <DropdownItem onClick={importModalToggleHandler}>
-        JSON 불러오기
-      </DropdownItem>
-    </DropdownWrapper>
+    <>
+      {isOpened ? (
+        <>
+          <DropdownWrapper>
+            <DropdownItem onClick={resetClickHandler}>초기화</DropdownItem>
+            <DropdownItem onClick={importModalToggleHandler}>
+              JSON 불러오기
+            </DropdownItem>
+          </DropdownWrapper>
+        </>
+      ) : (
+        <></>
+      )}
+      {isModalOpened ? (
+        <ImportModalPresenter
+          importModalToggleHandler={importModalToggleHandler}
+        />
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 

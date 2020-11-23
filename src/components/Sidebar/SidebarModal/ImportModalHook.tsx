@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import ImportModal from './ImportModalPresenter';
 
-interface ImportModalContainerProps {
+export interface ImportModalHookType {
+  onClickClose: (e: React.MouseEvent) => void;
+  text: string;
+  changeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onClickOK: (e: React.MouseEvent) => void;
+}
+
+interface ImportModalHookProps {
   importModalToggleHandler: () => void;
 }
 
-function ImportModalContainer({
+function ImportModalHook({
   importModalToggleHandler,
-}: ImportModalContainerProps): React.ReactElement {
+}: ImportModalHookProps): ImportModalHookType {
   const [text, setText] = useState('');
 
   const onClickClose = () => {
@@ -23,14 +29,12 @@ function ImportModalContainer({
     importModalToggleHandler();
   };
 
-  return (
-    <ImportModal
-      onClickClose={onClickClose}
-      text={text}
-      changeText={changeText}
-      onClickOK={onClickOK}
-    />
-  );
+  return {
+    onClickClose,
+    text,
+    changeText,
+    onClickOK,
+  };
 }
 
-export default ImportModalContainer;
+export default ImportModalHook;

@@ -1,19 +1,11 @@
 import React, { ReactElement } from 'react';
 import styled from '../../../utils/styles/styled';
+import UpperButtonsHook, { UpperButtonsHookProps } from './UpperButtonsHook';
 
-import SearchInput from '../SearchInput/SearchInputContainer';
+import SearchInput from '../SearchInput/SearchInputPresenter';
 import Button from '../Button/ButtonPresenter';
 import FullScreenIcon from '../../Icon/FullScreen';
 import SmallScreenIcon from '../../Icon/SmallScreen';
-
-interface UpperButtonsPropsInterface {
-  compareButtonClickHandler?: (
-    e: React.MouseEvent<HTMLElement, globalThis.MouseEvent>
-  ) => void;
-  fullScreenButtonClickHandler?: () => void;
-  smallScreenButtonClickHandler?: () => void;
-  isFullscreen: boolean;
-}
 
 const UpperButtonsWrapper = styled.div`
   display: flex;
@@ -35,11 +27,16 @@ const ButtonsWrapper = styled.div`
 `;
 
 function UpperButtonsPresenter({
-  compareButtonClickHandler,
-  fullScreenButtonClickHandler,
-  smallScreenButtonClickHandler,
-  isFullscreen,
-}: UpperButtonsPropsInterface): ReactElement {
+  fullscreenHandler,
+  smallscreenHandler,
+}: UpperButtonsHookProps): ReactElement {
+  const {
+    isFullscreen,
+    fullScreenButtonClickHandler,
+    smallScreenButtonClickHandler,
+    compareButtonClickHandler,
+  } = UpperButtonsHook({ fullscreenHandler, smallscreenHandler });
+
   return (
     <UpperButtonsWrapper>
       <SearchInput />

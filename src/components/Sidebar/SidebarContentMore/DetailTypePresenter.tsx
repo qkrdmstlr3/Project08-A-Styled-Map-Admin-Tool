@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import StylerPresenter from './StylerPresenter';
+import DetailTypeHook, { DetailTypeHookType } from './DetailTypeHook';
 
 type paddingStepType = 'first' | 'second' | 'third';
 interface PaddingProp {
@@ -68,9 +70,6 @@ const Pointer = styled.span``;
 
 interface DetailTypePresenterProps {
   featureName: string;
-  detailName: string;
-  detailClickHandler: (name: string) => void;
-  children: React.ReactNode;
 }
 
 interface ListItemProps {
@@ -106,13 +105,15 @@ function ListItem({
 /** DetailTypePresenter Component */
 function DetailTypePresenter({
   featureName,
-  detailClickHandler,
-  detailName,
-  children,
 }: DetailTypePresenterProps): React.ReactElement {
   if (!featureName) {
     return <></>;
   }
+
+  const {
+    detailName,
+    detailClickHandler,
+  }: DetailTypeHookType = DetailTypeHook();
 
   return (
     <>
@@ -162,7 +163,7 @@ function DetailTypePresenter({
           />
         </List>
       </DetailWrapper>
-      {children}
+      <StylerPresenter detailName={detailName} />
     </>
   );
 }

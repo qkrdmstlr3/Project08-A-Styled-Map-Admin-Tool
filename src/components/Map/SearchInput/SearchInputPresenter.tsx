@@ -1,10 +1,6 @@
-import React, { ReactElement, ChangeEvent } from 'react';
+import React, { ReactElement } from 'react';
 import styled from '../../../utils/styles/styled';
-
-interface SearchInputPropsInterface {
-  inputText: string;
-  onSearchInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+import SearchInputHook, { SearchInputHookType } from './SearchInputHook';
 
 const SearchInput = styled.input`
   width: 100%;
@@ -21,10 +17,12 @@ const SearchInput = styled.input`
   box-shadow: 0 0 10px grey;
 `;
 
-function SearchInputPresenter({
-  inputText,
-  onSearchInputChange,
-}: SearchInputPropsInterface): ReactElement {
+function SearchInputPresenter(): ReactElement {
+  const {
+    inputText,
+    onSearchInputChange,
+  }: SearchInputHookType = SearchInputHook();
+
   return (
     <SearchInput
       value={inputText}

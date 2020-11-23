@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import SidebarContentHook, {
+  SidebarContentHookType,
+} from './SidebarContentHook';
+
+import FeatureTypePresenter from './FeatureTypePresenter';
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -9,14 +14,22 @@ const ContentWrapper = styled.div`
   flex-direction: row;
 `;
 
-interface SidebarContentPresenterProps {
-  children: React.ReactNode;
-}
+function SidebarContentPresenter(): React.ReactElement {
+  const {
+    featureClickHandler,
+    featureName,
+    styledFeatureList,
+  }: SidebarContentHookType = SidebarContentHook();
 
-function SidebarContentPresenter({
-  children,
-}: SidebarContentPresenterProps): React.ReactElement {
-  return <ContentWrapper>{children}</ContentWrapper>;
+  return (
+    <ContentWrapper>
+      <FeatureTypePresenter
+        featureName={featureName}
+        styledFeatureList={styledFeatureList}
+        featureClickHandler={featureClickHandler}
+      />
+    </ContentWrapper>
+  );
 }
 
 export default SidebarContentPresenter;

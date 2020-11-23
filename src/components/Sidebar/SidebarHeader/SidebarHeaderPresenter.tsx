@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import SidebarHeaderHook, { SidebarHeaderHookType } from './SidebarHeaderHook';
+
 import UndoIcon from '../../Icon/UndoIcon';
 import MoreVertIcon from '../../Icon/MoreVertIcon';
+import SidebarDropdownPresenter from './SidebarDropdownPresenter';
 
 const HeaderWrapper = styled.header`
   height: 5.5rem;
@@ -50,22 +53,26 @@ const DropdownBtn = styled(MoreVertIcon)`
 
 interface SidebarHeaderPresenterProps {
   isAdvanced: boolean;
-  onClickDropdown: () => void;
-  children: React.ReactNode;
 }
 
 function SidebarHeaderPresenter({
   isAdvanced,
-  onClickDropdown,
-  children,
 }: SidebarHeaderPresenterProps): React.ReactElement {
+  const {
+    isOpened,
+    dropdownToggleHandler,
+  }: SidebarHeaderHookType = SidebarHeaderHook();
+
   return (
     <HeaderWrapper>
       <HeaderTitle>{isAdvanced ? '고급 설정' : '스타일 맵 만들기'}</HeaderTitle>
       <Btns>
         <UndoBtn />
-        <DropdownBtn onClick={onClickDropdown} />
-        {children}
+        <DropdownBtn onClick={dropdownToggleHandler} />
+        <SidebarDropdownPresenter
+          isOpened={isOpened}
+          dropdownToggleHandler={dropdownToggleHandler}
+        />
       </Btns>
     </HeaderWrapper>
   );

@@ -15,7 +15,7 @@ const LowerButtonsWrapper = styled.div`
   z-index: 10;
 `;
 
-interface LowerButtonPresenterProps {
+export interface LowerButtonPresenterProps {
   plusZoom: () => void;
   minusZoom: () => void;
 }

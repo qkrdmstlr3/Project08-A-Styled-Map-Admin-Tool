@@ -1,5 +1,5 @@
 import React from 'react';
-import DetailTypeContainer from './DetailTypeContainer';
+import DetailTypePresenter from './DetailTypePresenter';
 import styled from '../../../utils/styles/styled';
 import data from '../../../utils/redering-data/featureTypeData';
 
@@ -73,7 +73,7 @@ function FeatureTypePresenter({
           </FeatureList>
         ))}
       </FeatureTypeWrapper>
-      <DetailTypeContainer featureName={featureName} />
+      <DetailTypePresenter featureName={featureName} />
     </>
   );
 }

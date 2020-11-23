@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '../utils/styles/styled';
-import Sidebar from '../components/Sidebar/SidebarContainer';
-import Map from '../components/Map/MapContainer';
+import Sidebar from '../components/Sidebar/SidebarPresenter';
+import Map from '../components/Map/MapPresenter';
 
 const Container = styled.div`
   display: flex;

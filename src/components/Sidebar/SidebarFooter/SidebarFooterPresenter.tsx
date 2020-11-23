@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
+import SidebarFooterHook, { SidebarFooterHookType } from './SidebarFooterHook';
 
 const FooterWrapper = styled.footer`
   display: flex;
@@ -28,13 +29,18 @@ const Button = styled.button`
 
 interface SidebarFooterPresenterProps {
   isAdvanced: boolean;
-  clickHandler: () => void;
+  setIsAdvanced: (isAdvanced: boolean) => void;
 }
 
 function SidebarFooterPresenter({
   isAdvanced,
-  clickHandler,
+  setIsAdvanced,
 }: SidebarFooterPresenterProps): React.ReactElement {
+  const { clickHandler }: SidebarFooterHookType = SidebarFooterHook({
+    isAdvanced,
+    setIsAdvanced,
+  });
+
   return (
     <FooterWrapper>
       <Button onClick={clickHandler}>

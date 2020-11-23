@@ -1,8 +1,9 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import styled from '../../utils/styles/styled';
+import MapHook, { MapHookType } from './MapHook';
 
-import UpperButtonsContainer from './ButtonGroup/UpperButtonsContainer';
-import LowerButtonsContainer from './ButtonGroup/LowerButtonsContainer';
+import UpperButtonsPresenter from './ButtonGroup/UpperButtonsPresenter';
+import LowerButtonsPresenter from './ButtonGroup/LowerButtonsPresenter';
 
 const MapWrapper = styled.div`
   height: 100vh;
@@ -17,28 +18,22 @@ const MapWrapper = styled.div`
   }
 `;
 
-interface MapPresenterProps {
-  mapRef: RefObject<HTMLDivElement>;
-  plusZoom: () => void;
-  minusZoom: () => void;
-  fullscreenHandler: () => void;
-  smallscreenHandler: () => void;
-}
+function MapPresenter(): React.ReactElement {
+  const {
+    mapRef,
+    fullscreenHandler,
+    smallscreenHandler,
+    plusZoom,
+    minusZoom,
+  }: MapHookType = MapHook();
 
-function MapPresenter({
-  mapRef,
-  plusZoom,
-  minusZoom,
-  fullscreenHandler,
-  smallscreenHandler,
-}: MapPresenterProps): React.ReactElement {
   return (
     <MapWrapper ref={mapRef}>
-      <UpperButtonsContainer
+      <UpperButtonsPresenter
         fullscreenHandler={fullscreenHandler}
         smallscreenHandler={smallscreenHandler}
       />
-      <LowerButtonsContainer plusZoom={plusZoom} minusZoom={minusZoom} />
+      <LowerButtonsPresenter plusZoom={plusZoom} minusZoom={minusZoom} />
     </MapWrapper>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '../../../utils/styles/styled';
-import SidebarContentThemeContainer from './SidebarContentThemeContainer';
+import SidebarContentThemePresenter from './SidebarContentThemePresenter';
 import SidebarContentDepthPresenter from './SidebarContentDepthPresenter';
 
 const ContentWrapper = styled.div`
@@ -14,7 +14,7 @@ function SidebarContentPresenter(): React.ReactElement {
   return (
     <ContentWrapper>
       <SidebarContentDepthPresenter />
-      <SidebarContentThemeContainer />
+      <SidebarContentThemePresenter />
     </ContentWrapper>
   );
 }
